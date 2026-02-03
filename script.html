@@ -1,0 +1,53 @@
+const cafes = [
+  {
+    name: "高知海カフェ",
+    lat: 33.4948,
+    lng: 133.5467,
+    keywords: ["海", "おしゃれ"],
+    review: "海を眺めながらゆっくりできるカフェ",
+    image: "https://via.placeholder.com/120"
+  },
+  {
+    name: "高知レトロ喫茶",
+    lat: 33.5597,
+    lng: 133.5311,
+    keywords: ["レトロ", "静か"],
+    review: "落ち着いた雰囲気の老舗喫茶",
+    image: "https://via.placeholder.com/120"
+  }
+];
+
+const map = L.map("map").setView([33.5597, 133.5311], 13);
+
+L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+  attribution: "&copy; OpenStreetMap contributors"
+}).addTo(map);
+
+let markers = [];
+
+function showCafes(list) {
+  markers.forEach(m => map.removeLayer(m));
+  markers = [];
+
+  list.forEach(cafe => {
+    const marker = L.marker([cafe.lat, cafe.lng]).addTo(map);
+    marker.bindPopup(`
+      <b>${cafe.name}</b><br>
+      <img src="${cafe.image}" width="100"><br>
+      ${cafe.review}
+    `);
+    markers.push(marker);
+  });
+}
+
+function searchCafe() {
+  const key = document.getElementById("keyword").value;
+  const result = cafes.filter(c => c.keywords.includes(key));
+  showCafes(result);
+}
+
+navigator.geolocation.getCurrentPosition(pos => {
+  map.setView([pos.coords.latitude, pos.coords.longitude], 14);
+});
+
+showCafes(cafes);
