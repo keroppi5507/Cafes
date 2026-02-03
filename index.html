@@ -2,20 +2,30 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>KOCHI CAFE MAP</title>
+  <title>Kochi Cafe Viewer</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
   <style>
-    body { margin: 0; font-family: sans-serif; }
-    #map { height: 100vh; }
+    body {
+      margin: 0;
+      font-family: "Helvetica", sans-serif;
+    }
+    #map {
+      height: 100vh;
+    }
     .search-box {
       position: absolute;
-      top: 10px;
+      top: 15px;
       left: 50%;
       transform: translateX(-50%);
       background: white;
       padding: 10px;
-      border-radius: 10px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
       z-index: 1000;
+    }
+    input {
+      border: none;
+      outline: none;
     }
   </style>
 </head>
